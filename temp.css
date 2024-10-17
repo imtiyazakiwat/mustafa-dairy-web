@@ -1,0 +1,230 @@
+/* General styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f4f8;
+    color: #2d3748;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mulla-dairy {
+    font-size: 2.5rem;
+    font-family: 'Pacifico', cursive;
+    color: #3182ce;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styles */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    border: 1px solid #e2e8f0;
+    padding: 12px;
+    text-align: center;
+}
+
+.table th {
+    background-color: #4299e1;
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.table td {
+    background-color: #f9fafb;
+    transition: background-color 0.2s;
+}
+
+.table tr:hover td {
+    background-color: #ebf4ff;
+}
+
+/* Input styles */
+.input, input[type="date"], input[type="text"], input[type="number"] {
+    width: 100%;
+    border: 1px solid #cbd5e0;
+    text-align: center;
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.input:focus, input:focus {
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+    outline: none;
+}
+
+/* Signature styles */
+.signature {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 32px;
+    text-align: right;
+}
+
+.signature-label {
+    display: block;
+    margin-bottom: 16px;
+    border-top: 1px solid #e2e8f0;
+    width: 200px;
+    padding-top: 4px;
+    color: #718096;
+}
+
+/* Loader styles */
+.loader, .spinner {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border: 4px solid rgba(66, 153, 225, 0.3);
+    border-top: 4px solid #4299e1;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.spinner-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 999;
+    backdrop-filter: blur(5px);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Print-specific styles */
+@media print {
+    *{
+        margin: 0;
+        padding: 0;
+        
+    }
+    @page {
+        size: A4;
+        margin: 10mm;
+    }
+
+    body {
+        width: 210mm;
+        height: 297mm;
+        margin: 0;
+        padding: 0;
+        font-size: 8pt;
+        line-height: 1.2;
+    }
+
+    .container {
+        box-shadow: none;
+        margin: 0;
+        padding: 5mm;
+    }
+
+    .mulla-dairy {
+        font-size: 28pt;
+        margin-bottom: 1pt;
+    }
+
+    .bill-date, .farmer-name {
+        margin-bottom: 0pt;
+    }
+
+    .bill-date input, .farmer-name input {
+        font-size: 14pt;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        padding: 1pt 0;
+    }
+
+    .table {
+        font-size: 7pt;
+        margin-top: 0pt;
+        box-shadow: none;
+    }
+
+    .table th, .table td {
+        padding: 0pt;
+        border: 0.5pt solid #000;
+    }
+
+    .table th {
+        background-color: #f0f0f0 !important;
+        color: #000;
+    }
+
+    .signature {
+        margin-top: 10pt;
+    }
+
+    .signature-label {
+        margin-bottom: 20pt;
+        width: 100pt;
+    }
+
+    .no-print, .control-button, #loader {
+        display: none !important;
+    }
+
+    input, .input {
+        border: none;
+        font-size: inherit;
+        padding: 0;
+    }
+
+    /* Remove box shadows and backgrounds for better print quality */
+    * {
+        box-shadow: none !important;
+        background: none !important;
+    }
+}
+
+/* Responsive design for small screens */
+@media (max-width: 768px) {
+    .grid {
+        display: block;
+    }
+
+    .table {
+        font-size: 0.8rem;
+    }
+
+    .table th, .table td {
+        padding: 8px;
+    }
+
+    .mulla-dairy {
+        font-size: 2rem;
+    }
+}

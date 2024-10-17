@@ -1,13 +1,15 @@
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyCJeE2bd_Y3l1Q19jsWrnYwttZ_SHHssaA",
-  authDomain: "mustafa-dairy.firebaseapp.com",
-  projectId: "mustafa-dairy",
-  storageBucket: "mustafa-dairy.appspot.com",
-  messagingSenderId: "727616627428",
-  appId: "1:727616627428:web:cb691fb786f77a69c342f1",
-  measurementId: "G-E13H2GC55B"
+  apiKey: "AIzaSyAKAErhn_G-LoiM68PRlTaBoo0J0jJXfic",
+  authDomain: "asmp-7dc30.firebaseapp.com",
+  projectId: "asmp-7dc30",
+  storageBucket: "asmp-7dc30.appspot.com",
+  messagingSenderId: "665262733674",
+  appId: "1:665262733674:web:89b1120360c3e020680d13",
+  measurementId: "G-KSP9CFQHYY"
 };
+
+
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();

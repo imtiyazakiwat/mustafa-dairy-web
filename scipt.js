@@ -96,17 +96,37 @@ function calculateTotals() {
 }
 
 function calcAmount(fat, snf) {
-    const s = 9.0;
-    const sp = (snf - s) * 10;
-    const sa = snf <= 9.0 ? sp * 0.50 : sp * 0.05;
-
-    const f = 6.5;
-    const fp = (fat - f) * 10;
-    const fa = fat <= 6.5 ? fp * 0.50 : fp * 0.60;
-
-    const amount = sa + fa + 52.50;
+    const baseRate = 23.0;
+    
+    // Calculate FAT hike
+    let fatHike = 0.0;
+    if (fat <= 6.0) {
+      fatHike = Array.from({length: Math.floor((fat - 5.0) * 10)}, (_, i) => 1.5 - 0.1 * i).reduce((a, b) => a + b, 0);
+    } else if (fat <= 6.5) {
+      fatHike = 10.5 + (fat - 6.0) * 5.0;
+    } else {
+      fatHike = 10.5 + 2.5 + (fat - 6.5) * 3.0;
+    }
+  
+    // Calculate SNF hike
+    let snfHike = 0.0;
+    if (snf <= 8.5) {
+      snfHike = (snf - 7.5) * 10.0;
+    } else if (snf <= 9.0) {
+      snfHike = 10.0 + Array.from({length: Math.floor((snf - 8.5) * 10)}, (_, i) => 0.9 - 0.1 * i).reduce((a, b) => a + b, 0);
+    } else if (snf <= 9.4) {
+      snfHike = 10.0 + 3.5;
+      if (fat > 5.5) {
+        snfHike += 0.1 * (snf - 9.0) * 10;
+      }
+    } else {
+      snfHike = 10.0 + 3.5 + (snf - 9.0) * 1.0;
+    }
+  
+    // Calculate final amount
+    const amount = baseRate + fatHike + snfHike;
     return amount;
-}
+  }
 
 function saveData() {
 // Show loader
