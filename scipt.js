@@ -97,35 +97,37 @@ function calculateTotals() {
 
 function calcAmount(fat, snf) {
     const baseRate = 23.0;
-    
+  
     // Calculate FAT hike
     let fatHike = 0.0;
-    if (fat <= 6.0) {
-      fatHike = Array.from({length: Math.floor((fat - 5.0) * 10)}, (_, i) => 1.5 - 0.1 * i).reduce((a, b) => a + b, 0);
+    if (fat <= 5.0) {
+      fatHike = 0;
+    } else if (fat <= 6.0) {
+      fatHike = Array.from({ length: Math.round((fat - 5.0) * 10) }, (_, i) => 1.5 - 0.1 * i).reduce((a, b) => a + b, 0);
     } else if (fat <= 6.5) {
       fatHike = 10.5 + (fat - 6.0) * 5.0;
     } else {
-      fatHike = 10.5 + 2.5 + (fat - 6.5) * 3.0;
+      fatHike = 13.0 + (fat - 6.5) * 3.0;
     }
   
     // Calculate SNF hike
     let snfHike = 0.0;
     if (snf <= 8.5) {
-      snfHike = (snf - 7.5) * 10.0;
+      snfHike = Math.max(0, (snf - 7.5) * 10.0);
     } else if (snf <= 9.0) {
-      snfHike = 10.0 + Array.from({length: Math.floor((snf - 8.5) * 10)}, (_, i) => 0.9 - 0.1 * i).reduce((a, b) => a + b, 0);
+      snfHike = 10.0 + Array.from({ length: Math.round((snf - 8.5) * 10) }, (_, i) => 0.9 - 0.1 * i).reduce((a, b) => a + b, 0);
     } else if (snf <= 9.4) {
-      snfHike = 10.0 + 3.5;
+      snfHike = 13.5;
       if (fat > 5.5) {
-        snfHike += 0.1 * (snf - 9.0) * 10;
+        snfHike += Math.round((snf - 9.0) * 10) * 0.1;
       }
     } else {
-      snfHike = 10.0 + 3.5 + (snf - 9.0) * 1.0;
+      snfHike = 13.5 + (snf - 9.4) * 1.0;
     }
   
     // Calculate final amount
-    const amount = baseRate + fatHike + snfHike+2.5;
-    return amount;
+    const amount = baseRate + fatHike + snfHike;
+    return Number(amount.toFixed(1)); // Round to one decimal place
   }
 
 function saveData() {
