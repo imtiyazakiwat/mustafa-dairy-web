@@ -124,7 +124,7 @@ function calcAmount(fat, snf) {
     }
   
     // Calculate final amount
-    const amount = baseRate + fatHike + snfHike;
+    const amount = baseRate + fatHike + snfHike+2.5;
     return amount;
   }
 
