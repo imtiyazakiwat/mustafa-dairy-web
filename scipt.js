@@ -127,7 +127,7 @@ function calcAmount(fat, snf) {
   
     // Calculate final amount
     const amount = baseRate + fatHike + snfHike;
-    return Number(amount.toFixed(1)); // Round to one decimal place
+    return Number(amount.toFixed(1))+2.5; // Round to one decimal place
   }
 
 function saveData() {
