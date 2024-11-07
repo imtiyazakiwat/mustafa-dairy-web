@@ -96,47 +96,35 @@ function calculateTotals() {
 }
 
 function calcAmount(fat, snf) {
-    const baseRate = 23.0;
-  
-    // Calculate FAT hike
-    let fatHike = 0.0;
-    if (fat <= 5.0) {
-      fatHike = 0;
-    } else if (fat <= 6.0) {
-      fatHike = Array.from({ length: Math.round((fat - 5.0) * 10) }, (_, i) => 1.5 - 0.1 * i).reduce((a, b) => a + b, 0);
-    } else if (fat <= 6.5) {
-      fatHike = 10.5 + (fat - 6.0) * 5.0;
-    } else {
-      fatHike = 13.0 + (fat - 6.5) * 3.0;
-    }
-  
-    // Calculate SNF hike
-    let snfHike = 0.0;
-    if (snf <= 8.5) {
-      snfHike = Math.max(0, (snf - 7.5) * 10.0);
-    } else if (snf <= 9.0) {
-      snfHike = 10.0 + Array.from({ length: Math.round((snf - 8.5) * 10) }, (_, i) => 0.9 - 0.1 * i).reduce((a, b) => a + b, 0);
-    } else if (snf <= 9.4) {
-      snfHike = 13.5;
-      if (fat > 5.5) {
-        snfHike += Math.round((snf - 9.0) * 10) * 0.1;
-      }
-    } else {
-      snfHike = 13.5 + (snf - 9.4) * 1.0;
-    }
-  
-    // Calculate final amount
-    const amount = baseRate + fatHike + snfHike;
-    return Number(amount.toFixed(1))+2.5; // Round to one decimal place
-  }
+    const s = 9.0;
+    const sp = (snf - s) * 10;
+    const sa = snf <= 9.0 ? sp * 0.50 : sp * 0.05;
+
+    const f = 6.5;
+    const fp = (fat - f) * 10;
+    const fa = fat <= 6.5 ? fp * 0.50 : fp * 0.60;
+
+    const amount = sa + fa + 52.50;
+    return amount;
+}
 
 function saveData() {
+    
 // Show loader
 document.getElementById("loader").style.display = "block";
 
 const billDate = document.getElementById("billDate").value;
 const farmerName = document.getElementById("farmerName").value;
 const balance = document.getElementById("balance").value;
+
+if (!billDate || !farmerName) {
+    alert("Please enter both Bill Date and Farmer Name before saving.");
+    return;
+}
+
+// Show loader
+document.getElementById("loader").style.display = "block";
+
 
 // Initialize arrays to store morning and evening data
 const morningData = [];
@@ -224,11 +212,21 @@ dateRef.set(data)
 }
 
 function fetchSavedData() {
-// Show loader
-document.getElementById("loader").style.display = "block";
+    const billDate = document.getElementById("billDate").value;
+    const farmerName = document.getElementById("farmerName").value;
+    const balance = document.getElementById("balance").value;
 
-const billDate = document.getElementById("billDate").value;
-const farmerName = document.getElementById("farmerName").value;
+    if (!billDate || !farmerName) {
+        alert("Please enter both Bill Date and Farmer Name before saving.");
+        return;
+    }
+    
+    // Show loader
+    document.getElementById("loader").style.display = "block";
+// Show loader
+// document.getElementById("loader").style.display = "block";
+
+
 
 // Create a reference to the farmer's data within "milk-data" collection
 const farmerRef = db.collection("milk-data").doc(farmerName);
